@@ -1,45 +1,24 @@
 #include <iostream>
-#include <string.h>
-
-using namespace std;
-
-int comparare(char* a, char* b) {
-    if (strlen(a) != strlen(b)) {
-        return strlen(b) - strlen(a);
-    } else {
-        return strcmp(a, b);
-    }
-}
-
+#include "student.h"
+#include "global_functions.h"
 
 int main() {
-    cout<<"Introduceti o propozitie: "<<endl;
-    char input[100];
-    scanf("%[^\n]", input);
+    string nume1, nume2;
+    cin>>nume1;
+    float nota_m1, nota_m2, nota_eng1, nota_eng2, nota_ist1, nota_ist2;
+    cin>>nota_m1>>nota_eng1>>nota_ist1;
+    cin>>nota_m2>>nota_eng2>>nota_ist2;
+ Student student1(nume1, nota_m1, nota_eng1, nota_ist1);
+ Student student2(nume2, nota_m2, nota_eng2, nota_ist2);
 
-    char* words[100];
-    int contor = 0;
-    char* token = strtok(input, " ");
-    while (token != nullptr) {
-        words[contor++] = token;
-        token = strtok(nullptr, " ");
-    }
+  cout << "Media primului student: " << student1.getAverage() << endl;
+  cout << "Media studentului al doilea: " << student2.getAverage() << endl;
 
-    char* aux;
+  cout << "Comparare dupa nume: " << compareByName(student1, student2) << endl;
+  cout << "Comparare dupa nota la matematica: " << compareByMathGrade(student1, student2) << endl;
+  cout << "Comparare dupa nota la engleza: " << compareByEngGrade(student1, student2) << endl;
+  cout << "Comparare dupa nota la istorie: " << compareByHistGrade(student1, student2) << endl;
+  cout << "Comparare dupa medie: " << compareByAverage(student1, student2) << endl;
 
- for (int i = 0; i < contor-1; i++) {
-        for (int j = i + 1; j < contor; j++) {
-            if (comparare(words[i], words[j]) > 0) {
-                aux = words[i];
-                words[i] = words[j];
-                words[j] = aux;
-            }
-        }
-    }
-
-    for (int i = 0; i < contor; i++) {
-        cout<<words[i]<<endl;
-    }
-
-    return 0;
+  return 0;
 }
